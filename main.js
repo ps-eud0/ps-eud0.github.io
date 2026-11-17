@@ -216,8 +216,13 @@ function initSectionTyping() {
           });
         });
       } else {
-        // Scrolled away — wipe everything so re-entry starts fresh
-        resetSection(typedEl, caretEl, output);
+        // Only reset when the element exits from the BOTTOM of the viewport
+        // (boundingClientRect.top > 0 means it's below — user scrolled back up past it).
+        // If top < 0 it exited from the TOP — user scrolled down past it — keep content visible.
+        if (entry.boundingClientRect.top > 0) {
+          if (_tokens.has(entry.target)) _tokens.get(entry.target).cancelled = true;
+          resetSection(typedEl, caretEl, output);
+        }
       }
     });
   }, { threshold: 0.45 });
