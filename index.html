@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aarushi Saini | Software Engineer</title>
+  <meta name="description" content="Software Engineer specializing in distributed systems, cloud-native architecture, and backend development.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="matrix-canvas"></canvas>
+  <div class="scanlines"></div>
+
+  <!-- Loader -->
+  <div id="loader">
+    <div class="loader-wrap">
+      <pre id="loader-text" class="loader-pre"></pre>
+      <div class="loader-bar-row">
+        <span id="loader-pct">0</span>%
+        <div class="loader-track"><div class="loader-fill" id="loader-fill"></div></div>
+      </div>
+      <div class="loader-status" id="loader-status">Initializing...</div>
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <nav id="navbar" class="nav-hidden">
+    <a href="#hero" class="nav-brand">&gt;&nbsp;AS_</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#about"      class="nav-link" data-sec="about">./about</a></li>
+      <li><a href="#skills"     class="nav-link" data-sec="skills">./skills</a></li>
+      <li><a href="#experience" class="nav-link" data-sec="experience">./exp</a></li>
+      <li><a href="#education"  class="nav-link" data-sec="education">./edu</a></li>
+      <li><a href="#contact"    class="nav-link" data-sec="contact">./contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section id="hero">
+    <div class="hero-wrap">
+      <div class="term hero-term">
+        <div class="term-bar">
+          <div class="term-dots"><span class="td td-r"></span><span class="td td-y"></span><span class="td td-g"></span></div>
+          <span class="term-title">root@matrix:~</span>
+        </div>
+        <div class="term-body" id="hero-body"></div>
+      </div>
+      <div class="hero-cta" id="hero-cta" style="display:none">
+        <a href="#experience" class="btn">view_work()</a>
+        <a href="#contact" class="btn btn-ghost">connect()</a>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <span>scroll --down</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="sec">
+    <div class="container">
+      <h2 class="sec-title"><span class="sec-prompt">//</span> whoami</h2>
+      <div class="about-grid">
+        <div class="term fi">
+          <div class="term-bar">
+            <div class="term-dots"><span class="td td-r"></span><span class="td td-y"></span><span class="td td-g"></span></div>
+            <span class="term-title">about.md</span>
+          </div>
+          <div class="term-body">
+            <p class="kv"><span class="k">name</span><span class="v">Aarushi Saini</span></p>
+            <p class="kv"><span class="k">role</span><span class="v">Software Engineer</span></p>
+            <p class="kv"><span class="k">location</span><span class="v">Bengaluru, India</span></p>
+            <p class="kv"><span class="k">status</span><span class="v status-on">&#9679; online</span></p>
+            <div class="divider"></div>
+            <p class="bio">Backend engineer with <span class="hl">3+ years</span> building distributed systems and cloud-native applications. Currently at <span class="hl">Visa Inc.</span>, crafting payment gateway infrastructure.</p>
+            <p class="bio">Previously at <span class="hl">Fidelity Investments</span> — built serverless APIs handling <span class="hl">20k TPS</span>, migrated <span class="hl">140M+ records</span>, and maintained <span class="hl">99.9% uptime</span> on tier-0 financial systems.</p>
+            <p class="bio">Passionate about Kafka, event-driven architecture, and infrastructure as code.</p>
+            <div class="cta-row">
+              <a href="mailto:aarushi.saini100@gmail.com" class="btn">email_me()</a>
+              <a href="https://github.com/ps-eud0" target="_blank" rel="noopener" class="btn btn-ghost">github.go()</a>
+            </div>
+          </div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat fi"><div class="sn">3<sup>+</sup></div><div class="sl">Years of Experience</div></div>
+          <div class="stat fi"><div class="sn">140M<sup>+</sup></div><div class="sl">Records Migrated</div></div>
+          <div class="stat fi"><div class="sn">20k</div><div class="sl">TPS Supported</div></div>
+          <div class="stat fi"><div class="sn">99.9<sup>%</sup></div><div class="sl">System Uptime</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="sec">
+    <div class="container">
+      <h2 class="sec-title"><span class="sec-prompt">//</span> ls -la skills/</h2>
+      <div class="skills-grid">
+        <div class="term fi">
+          <div class="term-bar"><div class="term-dots"><span class="td td-r"></span><span class="td td-y"></span><span class="td td-g"></span></div><span class="term-title">backend/</span></div>
+          <div class="term-body">
+            <div class="skill-list">
+              <div class="ski"><span class="arr">&#9654;</span>Java</div>
+              <div class="ski"><span class="arr">&#9654;</span>Spring Boot</div>
+              <div class="ski"><span class="arr">&#9654;</span>Spring Batch</div>
+              <div class="ski"><span class="arr">&#9654;</span>Python</div>
+              <div class="ski"><span class="arr">&#9654;</span>Node.js</div>
+              <div class="ski"><span class="arr">&#9654;</span>SQL / PL-SQL</div>
+              <div class="ski"><span class="arr">&#9654;</span>JPA / JDBC</div>
+              <div class="ski"><span class="arr">&#9654;</span>Flask</div>
+            </div>
+          </div>
+        </div>
+        <div class="term fi">
+          <div class="term-bar"><div class="term-dots"><span class="td td-r"></span><span class="td td-y"></span><span class="td td-g"></span></div><span class="term-title">cloud/</span></div>
+          <div class="term-body">
+            <div class="skill-list">
+              <div class="ski"><span class="arr">&#9654;</span>AWS Lambda</div>
+              <div class="ski"><span class="arr">&#9654;</span>API Gateway</div>
+              <div class="ski"><span class="arr">&#9654;</span>S3 / SQS / SNS</div>
+              <div class="ski"><span class="arr">&#9654;</span>Kinesis Firehose</div>
+              <div class="ski"><span class="arr">&#9654;</span>DynamoDB</div>
+              <div class="ski"><span class="arr">&#9654;</span>Step Functions</div>
+              <div class="ski"><span class="arr">&#9654;</span>ECR / EC2</div>
+              <div class="ski"><span class="arr">&#9654;</span>IAM / KMS</div>
+              <div class="ski"><span class="arr">&#9654;</span>AWS Batch</div>
+            </div>
+          </div>
+        </div>
+        <div class="term fi">
+          <div class="term-bar"><div class="term-dots"><span class="td td-r"></span><span class="td td-y"></span><span class="td td-g"></span></div><span class="term-title">infra/</span></div>
+          <div class="term-body">
+            <div class="skill-list">
+              <div class="ski"><span class="arr">&#9654;</span>Terraform</div>
+              <div class="ski"><span class="arr">&#9654;</span>Docker</div>
+              <div class="ski"><span class="arr">&#9654;</span>Kubernetes / EKS</div>
+              <div class="ski"><span class="arr">&#9654;</span>Kafka</div>
+              <div class="ski"><span class="arr">&#9654;</span>Jenkins</div>
+              <div class="ski"><span class="arr">&#9654;</span>Datadog</div>
+              <div class="ski"><span class="arr">&#9654;</span>GitHub Copilot</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience" class="sec">
+    <div class="container">
+      <h2 class="sec-title"><span class="sec-prompt">//</span> cat experience.log</h2>
+      <div class="timeline">
+
+        <div class="tl-entry fi">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="term exp-term">
+            <div class="term-bar">
+              <div class="term-dots"><span class="td td-r"></span><span class="td td-y"></span><span class="td td-g"></span></div>
+              <span class="term-title">visa_inc.log</span>
+              <span class="badge-current">CURRENT</span>
+            </div>
+            <div class="term-body">
+              <div class="exp-head">
+                <div class="exp-role">Software Engineer</div>
+                <div class="exp-co">@ Visa Inc.</div>
+                <div class="exp-period">Apr 2025 — present &nbsp;·&nbsp; Bengaluru</div>
+              </div>
+              <ul class="exp-ul">
+                <li>Built a <span class="hl">GenAI-powered framework</span> (GitHub Copilot + OpenAI/Cline) to auto-generate test cases from mapping documents, cutting test creation time from <span class="hl">days to minutes</span>.</li>
+                <li>Migrating legacy payment gateway systems to new architecture — transforming <span class="hl">Kafka stream</span> transactions into gateway-specific formats (TC33A) for acquiring merchants.</li>
+                <li>Built a <span class="hl">Kafka-driven validation consumer</span> for automated diff reporting between legacy and migrated systems, enabling safe production rollout.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-entry fi">
+          <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="term exp-term">
+            <div class="term-bar">
+              <div class="term-dots"><span class="td td-r"></span><span class="td td-y"></span><span class="td td-g"></span></div>
+              <span class="term-title">fidelity_swe.log</span>
+            </div>
+            <div class="term-body">
+              <div class="exp-head">
+                <div class="exp-role">Full Stack Engineer</div>
+                <div class="exp-co">@ Fidelity Investments</div>
+                <div class="exp-period">Aug 2022 — Mar 2025 &nbsp;·&nbsp; Bengaluru</div>
+              </div>
+              <ul class="exp-ul">
+                <li>Built a secure <span class="hl">serverless API</span> on AWS (Lambda, SQS, API Gateway, S3, KMS, Step Functions, Kinesis) handling <span class="hl">20k TPS</span> for sensitive financial transactions.</li>
+                <li>Migrated <span class="hl">140M+ records</span> in 3 hours from DB2 mainframe to Oracle SQL using AWS Batch, JPA, Spring Batch, and Terraform.</li>
+                <li>Created a reconciliation service on EKS running every 30 min, <span class="hl">reducing errors by 20%+</span> by reprocessing failed records.</li>
+                <li>Led TLM modernization ensuring <span class="hl">99.9% uptime</span>; delivered <span class="hl">&gt;90% unit test coverage</span> across 3 Java applications.</li>
+                <li>Resolved critical system failure via Datadog analysis, delivering a workaround in <span class="hl">4 hours</span>.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-entry fi">
+          <div class="tl-left"><div class="tl-dot"></div></div>
+          <div class="term exp-term">
+            <div class="term-bar">
+              <div class="term-dots"><span class="td td-r"></span><span class="td td-y"></span><span class="td td-g"></span></div>
+              <span class="term-title">fidelity_intern.log</span>
+            </div>
+            <div class="term-body">
+              <div class="exp-head">
+                <div class="exp-role">Spring Intern</div>
+                <div class="exp-co">@ Fidelity Investments</div>
+                <div class="exp-period">Jan 2022 — Jun 2022 &nbsp;·&nbsp; Remote</div>
+              </div>
+              <ul class="exp-ul">
+                <li>Built a <span class="hl">Python POC API</span> to decode barcodes from multi-page files using pyzbar/zxing + Flask UI, eliminating vendor dependency.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section id="education" class="sec">
+    <div class="container">
+      <h2 class="sec-title"><span class="sec-prompt">//</span> cat education.json</h2>
+      <div class="edu-grid">
+        <div class="term fi">
+          <div class="term-bar"><div class="term-dots"><span class="td td-r"></span><span class="td td-y"></span><span class="td td-g"></span></div><span class="term-title">degree.json</span></div>
+          <div class="term-body edu-json">
+            <span class="jb">{</span>
+            <div class="jf"><span class="jk">"degree"</span>: <span class="js">"B.Tech — Computer Science &amp; Engineering"</span>,</div>
+            <div class="jf"><span class="jk">"institution"</span>: <span class="js">"SRM Institute of Science and Technology"</span>,</div>
+            <div class="jf"><span class="jk">"location"</span>: <span class="js">"Chennai"</span>,</div>
+            <div class="jf"><span class="jk">"period"</span>: <span class="js">"2018 — 2022"</span>,</div>
+            <div class="jf"><span class="jk">"cgpa"</span>: <span class="jn">9.6</span></div>
+            <span class="jb">}</span>
+          </div>
+        </div>
+        <div class="term fi">
+          <div class="term-bar"><div class="term-dots"><span class="td td-r"></span><span class="td td-y"></span><span class="td td-g"></span></div><span class="term-title">highschool.json</span></div>
+          <div class="term-body edu-json">
+            <span class="jb">{</span>
+            <div class="jf"><span class="jk">"level"</span>: <span class="js">"Class XII — Science"</span>,</div>
+            <div class="jf"><span class="jk">"institution"</span>: <span class="js">"Convent of Jesus and Mary"</span>,</div>
+            <div class="jf"><span class="jk">"location"</span>: <span class="js">"Ambala"</span>,</div>
+            <div class="jf"><span class="jk">"period"</span>: <span class="js">"2016 — 2018"</span>,</div>
+            <div class="jf"><span class="jk">"score"</span>: <span class="js">"91%"</span></div>
+            <span class="jb">}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="sec">
+    <div class="container">
+      <h2 class="sec-title"><span class="sec-prompt">//</span> ./connect.sh</h2>
+      <div class="term fi contact-term">
+        <div class="term-bar"><div class="term-dots"><span class="td td-r"></span><span class="td td-y"></span><span class="td td-g"></span></div><span class="term-title">connect.sh</span></div>
+        <div class="term-body">
+          <div class="cmd-line"><span class="prompt">$</span> cat contacts.txt</div>
+          <div class="contact-links">
+            <a href="mailto:aarushi.saini100@gmail.com" class="clink">
+              <span class="ctype">EMAIL</span><span class="csep">──</span><span class="cval">aarushi.saini100@gmail.com</span>
+            </a>
+            <a href="https://github.com/ps-eud0" target="_blank" rel="noopener" class="clink">
+              <span class="ctype">GITHUB</span><span class="csep">──</span><span class="cval">github.com/ps-eud0</span>
+            </a>
+            <!-- Update the href below with your actual LinkedIn URL -->
+            <a href="#" target="_blank" class="clink">
+              <span class="ctype">LINKEDIN</span><span class="csep">──</span><span class="cval">linkedin.com/in/aarushi-saini</span>
+            </a>
+            <!-- Update the href below with your actual LeetCode URL -->
+            <a href="#" target="_blank" class="clink">
+              <span class="ctype">LEETCODE</span><span class="csep">──</span><span class="cval">leetcode.com/u/aarushisaini</span>
+            </a>
+          </div>
+          <div class="contact-footer">
+            <span class="prompt">$</span> echo <span class="echo-s">"Open to exciting engineering challenges."</span>
+            <div class="echo-out">Open to exciting engineering challenges.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <span>Aarushi Saini &copy; 2025</span>
+      <span class="footer-r">crafted with &lt;3 &amp; caffeine</span>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
