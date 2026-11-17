@@ -2,6 +2,24 @@
    MATRIX PORTFOLIO — main.js
    ============================================================ */
 
+/* ---- Favicon (canvas-drawn PNG — works in all browsers incl. Safari) ---- */
+(function () {
+  const c = document.createElement('canvas');
+  c.width = c.height = 32;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = '#0d0d0d';
+  ctx.fillRect(0, 0, 32, 32);
+  ctx.shadowColor = '#00ff41';
+  ctx.shadowBlur = 7;
+  ctx.fillStyle = '#00ff41';
+  ctx.font = 'bold 17px "Courier New", monospace';
+  ctx.fillText('>_', 3, 22);
+  const link = document.createElement('link');
+  link.rel = 'icon';
+  link.href = c.toDataURL('image/png');
+  document.head.appendChild(link);
+})();
+
 /* ---- Matrix Rain ---- */
 class MatrixRain {
   constructor(canvas) {
