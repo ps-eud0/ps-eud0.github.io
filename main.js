@@ -145,16 +145,32 @@ async function runHeroTyper(container) {
   sub.appendChild(cur);
 }
 
-/* ---- Section Command Typing ---- */
-async function typeCmd(typedEl, caretEl, cmd) {
+/* ---- Section Command Typing (bidirectional) ---- */
+const _tokens = new WeakMap();
+
+async function typeCmd(typedEl, caretEl, cmd, token) {
+  caretEl.classList.remove('done');
   caretEl.classList.add('typing');
   for (const ch of cmd) {
+    if (token.cancelled) return false;
     typedEl.textContent += ch;
-    await sleep(38 + Math.random() * 28);
+    await sleep(36 + Math.random() * 26);
   }
-  await sleep(220);
+  if (token.cancelled) return false;
+  await sleep(200);
+  if (token.cancelled) return false;
   caretEl.classList.remove('typing');
   caretEl.classList.add('done');
+  return true;
+}
+
+function resetSection(typedEl, caretEl, output) {
+  typedEl.textContent = '';
+  caretEl.classList.remove('typing', 'done');
+  if (output) {
+    output.classList.remove('revealed');
+    output.querySelectorAll('.fi').forEach(el => el.classList.remove('vis'));
+  }
 }
 
 function initSectionTyping() {
@@ -162,22 +178,31 @@ function initSectionTyping() {
 
   const obs = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (!entry.isIntersecting || entry.target.dataset.fired) return;
-      entry.target.dataset.fired = '1';
+      const typedEl = entry.target.querySelector('.sec-typed');
+      const caretEl = entry.target.querySelector('.sec-caret');
+      const output  = entry.target.closest('.container').querySelector('.sec-output');
 
-      const typedEl  = entry.target.querySelector('.sec-typed');
-      const caretEl  = entry.target.querySelector('.sec-caret');
-      const output   = entry.target.closest('.container').querySelector('.sec-output');
+      // Cancel any in-flight animation
+      if (_tokens.has(entry.target)) _tokens.get(entry.target).cancelled = true;
 
-      typeCmd(typedEl, caretEl, typedEl.dataset.cmd).then(() => {
-        if (!output) return;
-        output.classList.add('revealed');
-        output.querySelectorAll('.fi').forEach((el, i) => {
-          setTimeout(() => el.classList.add('vis'), 80 + i * 120);
+      if (entry.isIntersecting) {
+        const token = { cancelled: false };
+        _tokens.set(entry.target, token);
+        resetSection(typedEl, caretEl, output);
+
+        typeCmd(typedEl, caretEl, typedEl.dataset.cmd, token).then(completed => {
+          if (!completed || !output) return;
+          output.classList.add('revealed');
+          output.querySelectorAll('.fi').forEach((el, i) => {
+            setTimeout(() => el.classList.add('vis'), 80 + i * 120);
+          });
         });
-      });
+      } else {
+        // Scrolled away — wipe everything so re-entry starts fresh
+        resetSection(typedEl, caretEl, output);
+      }
     });
-  }, { threshold: 0.4 });
+  }, { threshold: 0.45 });
 
   cmdLines.forEach(el => obs.observe(el));
 }
