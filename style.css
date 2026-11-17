@@ -300,14 +300,41 @@ body {
 
 .container { max-width: 1100px; margin: 0 auto; }
 
-.sec-title {
-  font-size: clamp(1.2rem, 2.8vw, 1.7rem);
+/* ---- Section command-line typing ---- */
+.sec-cmd-line {
+  font-size: clamp(1.1rem, 2.6vw, 1.55rem);
   color: var(--mg);
-  margin-bottom: 2.8rem;
-  letter-spacing: .08em;
-  text-shadow: var(--glow);
+  margin-bottom: 2.2rem;
+  letter-spacing: .06em;
+  display: flex;
+  align-items: baseline;
+  gap: .3rem;
+  min-height: 2em;
 }
-.sec-prompt { color: var(--mg2); margin-right: .5rem; }
+
+.sec-prompt { color: var(--mg2); flex-shrink: 0; }
+
+.sec-typed { color: var(--mg); text-shadow: var(--glow); }
+
+.sec-caret {
+  color: var(--mg);
+  font-size: .9em;
+  opacity: 0;
+  animation: none;
+}
+.sec-caret.typing { opacity: 1; animation: blink .7s step-end infinite; }
+.sec-caret.done   { opacity: 0; }
+
+/* Section output hidden until command is done */
+.sec-output {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .45s ease, transform .45s ease;
+}
+.sec-output.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 /* ---- Fade in ---- */
 .fi {
@@ -339,74 +366,48 @@ body {
 .cta-row { display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap; }
 
 /* ---- Matrix Character Cards ---- */
-.char-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.char-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .85rem;
+}
 
-.char-card {
-  background: var(--tbg);
-  border: 1px solid var(--bdr);
-  border-radius: 7px;
-  padding: 1.2rem 1.1rem 1rem;
+/* cards reuse .term — just override the bar title colour per character */
+.char-morpheus { color: #e06060 !important; }
+.char-oracle   { color: #c8a830 !important; }
+.char-neo      { color: var(--mg) !important; text-shadow: var(--glow); }
+.char-smith    { color: #888 !important; }
+
+.char-card { transition: border-color var(--ease), box-shadow var(--ease), transform var(--ease); }
+.char-card:hover { transform: translateY(-3px); }
+
+.char-card .term-body {
   display: flex;
   flex-direction: column;
-  gap: .45rem;
-  transition: border-color var(--ease), box-shadow var(--ease), transform var(--ease);
-  cursor: default;
-  position: relative;
-  overflow: hidden;
-}
-.char-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(0,255,65,.04) 0%, transparent 60%);
-  pointer-events: none;
-}
-.char-card:hover {
-  border-color: var(--bdrh);
-  box-shadow: var(--glow);
-  transform: translateY(-2px);
+  gap: .55rem;
+  padding: 1rem 1.1rem;
 }
 
-.char-pill {
-  width: 28px; height: 14px;
-  border-radius: 20px;
-  margin-bottom: .2rem;
-  box-shadow: 0 0 8px currentColor;
-}
-.char-pill-r { background: #cc3333; color: #cc3333; }
-.char-pill-o { background: #c8a830; color: #c8a830; }
-.char-pill-g { background: var(--mg); color: var(--mg); box-shadow: var(--glow); }
-.char-pill-s { background: #555; color: #555; box-shadow: 0 0 8px #555; }
-
-.char-name {
-  font-size: .95rem;
-  color: var(--mg);
-  font-weight: bold;
-  letter-spacing: .1em;
-  text-shadow: var(--glow);
-}
-
-.char-sub {
+.char-role-tag {
   font-size: .68rem;
   color: var(--mg2);
-  letter-spacing: .08em;
+  letter-spacing: .1em;
   text-transform: uppercase;
 }
 
 .char-quote {
-  font-size: .76rem;
+  font-size: .78rem;
   color: var(--text);
-  line-height: 1.6;
+  line-height: 1.65;
   font-style: italic;
-  margin: .2rem 0;
-  opacity: .85;
+  flex: 1;
 }
 
 .char-tags {
   display: flex;
   flex-wrap: wrap;
   gap: .3rem;
-  margin-top: .2rem;
+  margin-top: .1rem;
 }
 .char-tags span {
   font-size: .58rem;
@@ -419,7 +420,7 @@ body {
   transition: all var(--ease);
 }
 .char-card:hover .char-tags span {
-  border-color: rgba(0,255,65,.35);
+  border-color: rgba(0,255,65,.4);
   color: var(--mg);
 }
 
@@ -542,6 +543,7 @@ footer {
   .about-grid { grid-template-columns: 1fr; }
   .skills-grid { grid-template-columns: 1fr 1fr; }
   .edu-grid { grid-template-columns: 1fr; }
+  .char-grid { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 600px) {

@@ -20,7 +20,7 @@ class MatrixRain {
   _resize() {
     this.canvas.width  = window.innerWidth;
     this.canvas.height = window.innerHeight;
-    this.cols = Math.floor(this.canvas.width / this.fs);
+    this.cols  = Math.floor(this.canvas.width / this.fs);
     this.drops = Array.from({ length: this.cols }, () => Math.random() * -50);
   }
 
@@ -28,7 +28,6 @@ class MatrixRain {
     this.ctx.fillStyle = 'rgba(13,13,13,0.05)';
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.font = this.fs + 'px Share Tech Mono, monospace';
-
     for (let i = 0; i < this.drops.length; i++) {
       const ch = this.chars[(Math.random() * this.chars.length) | 0];
       const y  = this.drops[i] * this.fs;
@@ -70,9 +69,7 @@ function runLoader() {
   ];
 
   return new Promise(resolve => {
-    let idx = 0;
-    let txt = '';
-
+    let idx = 0, txt = '';
     const tick = () => {
       if (idx >= lines.length) {
         fill.style.width = '100%';
@@ -95,13 +92,14 @@ function runLoader() {
   });
 }
 
-/* ---- Hero Typer ---- */
+/* ---- Helpers ---- */
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
+/* ---- Hero Typer ---- */
 async function runHeroTyper(container) {
   const addDiv = (cls, style) => {
     const d = document.createElement('div');
-    if (cls) d.className = cls;
+    if (cls)   d.className = cls;
     if (style) Object.assign(d.style, style);
     container.appendChild(d);
     return d;
@@ -116,24 +114,27 @@ async function runHeroTyper(container) {
 
   const cmdStyle = { color: 'rgba(0,255,65,0.52)', fontSize: '.88rem' };
 
-  const d1 = addDiv(null, cmdStyle); await typeInto(d1, '$ wake_up neo...', 38); await sleep(380);
+  const d1 = addDiv(null, cmdStyle); await typeInto(d1, '$ wake_up neo...', 38);    await sleep(380);
   const d2 = addDiv(null, cmdStyle); await typeInto(d2, '$ the matrix has you...', 38); await sleep(380);
   const d3 = addDiv(null, cmdStyle); await typeInto(d3, '$ follow the white rabbit.', 38); await sleep(600);
 
   addDiv(null, { height: '.5rem' });
 
   const d4 = addDiv(null, { color: 'rgba(0,255,65,0.65)', fontSize: '.86rem' });
-  await typeInto(d4, '> LOADING IDENTITY PROFILE...', 28); await sleep(500);
+  await typeInto(d4, '> LOADING IDENTITY PROFILE...', 28);
+  await sleep(500);
 
   addDiv(null, { height: '.5rem' });
 
   const name = addDiv('hero-name');
-  await typeInto(name, 'AARUSHI SAINI', 60); await sleep(350);
+  await typeInto(name, 'AARUSHI SAINI', 60);
+  await sleep(350);
 
   addDiv(null, { height: '.35rem' });
 
   const role = addDiv('hero-role');
-  await typeInto(role, 'SOFTWARE ENGINEER', 48); await sleep(250);
+  await typeInto(role, 'SOFTWARE ENGINEER', 48);
+  await sleep(250);
 
   addDiv(null, { height: '.35rem' });
 
@@ -144,24 +145,41 @@ async function runHeroTyper(container) {
   sub.appendChild(cur);
 }
 
-/* ---- Scroll fade-ins ---- */
-function initFadeIns() {
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        const delay = parseInt(e.target.dataset.delay || '0');
-        setTimeout(() => e.target.classList.add('vis'), delay);
-        obs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+/* ---- Section Command Typing ---- */
+async function typeCmd(typedEl, caretEl, cmd) {
+  caretEl.classList.add('typing');
+  for (const ch of cmd) {
+    typedEl.textContent += ch;
+    await sleep(38 + Math.random() * 28);
+  }
+  await sleep(220);
+  caretEl.classList.remove('typing');
+  caretEl.classList.add('done');
+}
 
-  document.querySelectorAll('.sec').forEach(sec => {
-    sec.querySelectorAll('.fi').forEach((el, i) => {
-      el.dataset.delay = i * 110;
-      obs.observe(el);
+function initSectionTyping() {
+  const cmdLines = document.querySelectorAll('.sec-cmd-line');
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting || entry.target.dataset.fired) return;
+      entry.target.dataset.fired = '1';
+
+      const typedEl  = entry.target.querySelector('.sec-typed');
+      const caretEl  = entry.target.querySelector('.sec-caret');
+      const output   = entry.target.closest('.container').querySelector('.sec-output');
+
+      typeCmd(typedEl, caretEl, typedEl.dataset.cmd).then(() => {
+        if (!output) return;
+        output.classList.add('revealed');
+        output.querySelectorAll('.fi').forEach((el, i) => {
+          setTimeout(() => el.classList.add('vis'), 80 + i * 120);
+        });
+      });
     });
-  });
+  }, { threshold: 0.4 });
+
+  cmdLines.forEach(el => obs.observe(el));
 }
 
 /* ---- Active nav on scroll ---- */
@@ -212,7 +230,7 @@ async function boot() {
   cta.style.transition = 'opacity .6s ease';
   requestAnimationFrame(() => requestAnimationFrame(() => { cta.style.opacity = '1'; }));
 
-  initFadeIns();
+  initSectionTyping();
   initNavActive();
   initNavToggle();
 }
